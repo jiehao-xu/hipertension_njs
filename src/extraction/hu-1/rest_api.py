@@ -3,10 +3,14 @@ import json
 import pandas as pd
 import openpyxl
 from pathlib import Path
+import numpy as np
 
+# --- Obtención de lista medicamentos ---
 
-url = "https://cima.aemps.es/cima/rest/buscarEnFichaTecnica?pagina=1"
+# url a la que queremos acceder
+url_ficha_tecnica = "https://cima.aemps.es/cima/rest/buscarEnFichaTecnica?pagina=1"
 
+# settings del payload para obtener los nregistro de los medicamentos asociados a nuestra enfermedad
 payload = json.dumps([
   {
     "seccion": "4.1",
@@ -19,25 +23,27 @@ headers = {
   'Content-Type': 'application/json'
 }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+response = requests.request("POST", url_ficha_tecnica, headers=headers, data=payload)
 
-data = response.json()
+lista_medicamentos = response.json()
 
 nregistros = []
-for resultado in data["resultados"]:
+for resultado in lista_medicamentos["resultados"]:
     nregistros.append(resultado["nregistro"])
 
 
 medicamentos = []
 for nregistro in nregistros:
-    url = f"https://cima.aemps.es/cima/rest/medicamento?nregistro={nregistro}"
+
+    # Con el nregistro accedemos a las caracteristicas del medicamento
+    url_medicamento = f"https://cima.aemps.es/cima/rest/medicamento?nregistro={nregistro}"
 
     payload = {}
     headers = {
     'Cookie': 'JSESSIONID=csLKX9bGs_bTIPE2h352j3KQwKQVEdchKAGQP1ixe8iHI5K7LZEL!962100432'
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+    response = requests.request("GET", url_medicamento, headers=headers, data=payload)
     medicamento = response.json()
 
     # Primer Código Nacional disponible
@@ -84,7 +90,7 @@ for nregistro in nregistros:
             medicamento.get("estado", {}).get("aut"),
 
         "estado_rev":
-            medicamento.get("estado", {}).get("rev"),
+            (medicamento.get("estado") or {}).get("rev", np.nan),
 
         "vias_administracion": vias,
 
@@ -111,12 +117,13 @@ for nregistro in nregistros:
 
     medicamentos.append(datos)
 
+
 df = pd.DataFrame(medicamentos)
 print(df)
 
-output_path = Path("../../../data/raw/medicamentos.xlsx")
+# Ejecutar desde la raíz del proyecto
+output_path = Path("data/raw/medicamentos.xlsx")
 output_path.parent.mkdir(parents=True, exist_ok=True)
-
 df.to_excel(output_path, index=False)
 
 
