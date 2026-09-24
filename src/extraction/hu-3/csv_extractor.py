@@ -1,8 +1,8 @@
 import requests
 import pandas as pd
-from io import StringIO		# Transform text into file-like
+from io import StringIO		# Transform text into file-like FDs
 
-XLSX_FILE = "../../../data/raw/medicamentosHU2.xlsx"
+XLSX_FILE = "data/raw/medicamentosHU2.xlsx"
 
 def downloadCNlist(cn_list):
 
@@ -41,7 +41,7 @@ cleaned_df = df[["Código Nacional", "Estado", "Precio venta al público con IVA
 cleaned_df.rename(columns={'Código Nacional': 'cn'}, inplace=True)
 
 result_df = pd.merge(original_df, cleaned_df, on='cn', how='left')
-result_df.to_excel("../../../data/raw/medicamentosHU3.xlsx")
+result_df.to_excel("data/raw/medicamentosHU3.xlsx", index=False)
 
 
 
