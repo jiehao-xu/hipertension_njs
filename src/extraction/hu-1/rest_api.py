@@ -18,12 +18,17 @@ payload = json.dumps([
     "contiene": 1
   }
 ])
+
 headers = {
-  'Cookie': 'JSESSIONID=jJHKTa7yffeRKOMGXBJNtxxaZfjpYRMpe64PZucCEpS8Ud6tKa4Y!962100432',
   'Content-Type': 'application/json'
 }
 
-response = requests.request("POST", url_ficha_tecnica, headers=headers, data=payload)
+response = requests.request(
+    "POST",
+    url_ficha_tecnica,
+    headers=headers,
+    data=payload
+)
 
 lista_medicamentos = response.json()
 
@@ -31,19 +36,14 @@ nregistros = []
 for resultado in lista_medicamentos["resultados"]:
     nregistros.append(resultado["nregistro"])
 
-
+# --- Obtención de lista de características de los medicamentos ---
 medicamentos = []
 for nregistro in nregistros:
 
     # Con el nregistro accedemos a las caracteristicas del medicamento
     url_medicamento = f"https://cima.aemps.es/cima/rest/medicamento?nregistro={nregistro}"
 
-    payload = {}
-    headers = {
-    'Cookie': 'JSESSIONID=csLKX9bGs_bTIPE2h352j3KQwKQVEdchKAGQP1ixe8iHI5K7LZEL!962100432'
-    }
-
-    response = requests.request("GET", url_medicamento, headers=headers, data=payload)
+    response = requests.request("GET", url_medicamento)
     medicamento = response.json()
 
     # Primer Código Nacional disponible
@@ -71,7 +71,7 @@ for nregistro in nregistros:
         if "material" in foto.get("tipo", "").lower():
             url_foto_materiales = foto.get("url")
             break
-
+    
     datos = {
         "nregistro": medicamento.get("nregistro"),
         "nombre": medicamento.get("nombre"),
@@ -119,7 +119,7 @@ for nregistro in nregistros:
 
 
 df = pd.DataFrame(medicamentos)
-print(df)
+
 
 # Ejecutar desde la raíz del proyecto
 output_path = Path("data/raw/medicamentos.xlsx")
