@@ -119,7 +119,7 @@ for nregistro in nregistros:
 
 
 df = pd.DataFrame(medicamentos)
-
+print(df)
 
 # Ejecutar desde la raíz del proyecto
 output_path = Path("data/raw/medicamentos.xlsx")
