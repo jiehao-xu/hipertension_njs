@@ -119,6 +119,13 @@ for nregistro in nregistros:
 
 
 df = pd.DataFrame(medicamentos)
+
+# Convertir las fechas de milisegundos Unix al formato dia, mes y ano.
+for columna in ["estado_aut", "estado_rev"]:
+    df[columna] = pd.to_datetime(
+        df[columna], unit="ms", errors="coerce"
+    ).dt.strftime("%d/%m/%y")
+
 print(df)
 
 # Ejecutar desde la raíz del proyecto
