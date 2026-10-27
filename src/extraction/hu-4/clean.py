@@ -12,7 +12,6 @@ identifier = {
 }
 
 predictors = {
-	"estado_aut",
 	"comercializado",
 	"requiere_receta",
 	"generico",
@@ -20,26 +19,26 @@ predictors = {
 	"triangulo_negro",
 	"medicamento_huerfano",
 	"biosimilar",
-	"num_registros_atc",
 	"num_principios_activos",
 	"num_excipientes",
 	"num_palabras4.4",
 	"num_tablas",
 	"indicador_riesgo_grave",
-	"Precio venta al público con IVA"
+	"Precio venta al público con IVA",
+	"Tratamiento de larga duración"
 }
 
 work = {
 	"pactivos",
-	"dosis"
+	"dosis",
+	"estado_aut",
+	"estado_rep"		# If there is a value 1, if not 0
 }
 
 short_groups = {
 	"forma_farmaceutica_simplificada",
 	"vias_administracion",
-	"Estado",
-	"Tratamiento de larga duración",
-	"Especial control médico"
+	"Estado"
 }
 
 long_groups = {
@@ -49,7 +48,9 @@ long_groups = {
 delete = {
 	"estado_rev",
 	"labcomercializador",
-	"Precio de referencia"
+	"Precio de referencia",
+	"num_registros_atc",
+	"Especial control médico"
 }
 
 def clean_dosis(dosis):
