@@ -1,5 +1,4 @@
-
-
+from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import re
 
@@ -115,7 +114,13 @@ def clean_tratamiento(df):
 	df.replace("SI", 1, inplace=True)
 	df.replace("NO", 0, inplace=True)
 	return df.fillna(0)
-	
+
+def clean_labtitular(df):
+	grouped_labtitular_encoder = OneHotEncoder(min_frequency=10, sparse_output=False)
+	data = grouped_labtitular_encoder.fit_transform(df[["labtitular"]])
+	encoded_df = pd.DataFrame(data, columns=grouped_labtitular_encoder.get_feature_names_out(["labtitular"]))
+	return pd.concat([df, encoded_df], axis=1)
+
 
 def clean(df):
 	df.drop(columns=delete, inplace=True)
@@ -129,6 +134,9 @@ def clean(df):
 
 	df = clean_pactivos(df)
 	df.drop(columns="pactivos", inplace=True)
+
+	df = clean_labtitular(df)
+	df.drop(columns="labtitular", inplace=True)
 
 	df.to_csv("data/raw/medicamentosHU4.csv")
 
