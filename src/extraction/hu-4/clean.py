@@ -138,7 +138,10 @@ def clean(df):
 	df = clean_labtitular(df)
 	df.drop(columns="labtitular", inplace=True)
 
-	df.to_csv("data/raw/medicamentosHU4.csv")
+	mean_value = df["Precio venta al público con IVA"].mean()
+	df["Precio venta al público con IVA"] = df["Precio venta al público con IVA"].fillna(mean_value)
+
+	df.to_csv("data/raw/medicamentosHU4.csv", index=False)
 
 
 
