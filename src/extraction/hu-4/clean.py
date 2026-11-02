@@ -99,7 +99,7 @@ def clean_pactivos(df):
 
 
 def clean_dosis(dosis):
-	d = re.search(r"^(\d|,)+", dosis).group()
+	d = re.search(r"^[\d|,.]+", dosis).group()
 	return d.replace(",", ".")
 
 def clean_estadoAut(estado_aut):

@@ -18,7 +18,7 @@ def infer_and_add_cluster_column(file_path: str="data/raw/medicamentosHU4.csv"):
     figures_path = Path("data/figures")
     figures_path.mkdir(parents=True, exist_ok=True)
 
-
+    # Variables seleccionadas para el clustering (numericas para evitar problemas con el algoritmo KMeans)
     features = ['Precio venta al público con IVA', 'dosis', 'num_palabras4.4', 
             'num_excipientes', 'indicador_riesgo_grave', 'num_tablas']
     
@@ -42,6 +42,7 @@ def infer_and_add_cluster_column(file_path: str="data/raw/medicamentosHU4.csv"):
         # Guardar el modelo entrenado
         fits.append(model)
 
+        # Medir el score para este número de clusters.
         score.append(silhouette_score(datos_escalados, etiquetas, metric="euclidean"))
 
     # Imprimir las puntuaciones obtenidas
@@ -63,10 +64,6 @@ def infer_and_add_cluster_column(file_path: str="data/raw/medicamentosHU4.csv"):
     plt.show()
     plt.close(figura_silueta)
 
-    # Añadir la columna de clusters al dataframe original
-    # indice_mejor_k = score.index(max(score))
-    # mejor_modelo = fits[indice_mejor_k]
-    # print("El número óptimo de clusters es:", valores_k[indice_mejor_k])
 
     # Elegimos k=6 porque tiene un score bueno, pero no creamos microgrupos
     df["n_cluster"] = fits[4].labels_
@@ -74,6 +71,7 @@ def infer_and_add_cluster_column(file_path: str="data/raw/medicamentosHU4.csv"):
     print("Numero de elementos por clúster:")
     print(df["n_cluster"].value_counts().sort_index())
 
+    # Mostrar las medias de cada variable por clúster para entender mejor las características de cada grupo
     print("\nMedias de cada variable por clúster:")
     centroides = df.groupby("n_cluster")[features].mean().round(2)
     print(centroides)
@@ -87,6 +85,7 @@ def infer_and_add_cluster_column(file_path: str="data/raw/medicamentosHU4.csv"):
         5: "Fármacos premium de dosis extrema"
     }
 
+    # Traducir las etiquetas numéricas a nombres descriptivos.
     df["cluster"] = df["n_cluster"].map(nombres_clusters)
 
     # Guardar el dataset con la nueva columna
