@@ -31,7 +31,7 @@ work = {
 	"pactivos",			# Will be done by Samu
 	"dosis",			# DONE
 	"estado_aut",		# DONE
-	"estado_rep"		# If there is a value 1, if not 0
+	"estado_rev"		# If there is a value 1, if not 0
 }
 
 short_groups = {
@@ -140,8 +140,9 @@ def clean(df):
 
 	mean_value = df["Precio venta al público con IVA"].mean()
 	df["Precio venta al público con IVA"] = df["Precio venta al público con IVA"].fillna(mean_value)
-
+	print(df)
 	df.to_csv("data/raw/medicamentosHU4.csv", index=False)
+	df.to_excel("data/raw/medicamentosHU4.xlsx", index=False)
 
 
 
