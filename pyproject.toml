@@ -9,7 +9,11 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "bs4>=0.0.2",
+    "dotenv>=0.9.9",
     "matplotlib>=3.11.2",
+    "mysql>=0.0.3",
+    "mysql-connector>=2.2.9",
+    "mysql-connector-python>=26.10.0",
     "openpyxl>=3.1.5",
     "pandas>=3.0.6",
     "pathlib>=1.0.1",
