@@ -1,0 +1,1 @@
+CREATE VIEW kpi4 AS select`Precio venta al público con IVA` - `Precio de referencia` FROM medicamentos_hu5;
