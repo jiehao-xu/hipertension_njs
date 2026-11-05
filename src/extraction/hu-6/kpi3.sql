@@ -1,0 +1,1 @@
+CREATE VIEW kpi3 AS select num_principios_activos + num_excipientes FROM medicamentos_hu5;

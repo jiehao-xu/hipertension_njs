@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS medicamentos_hu5 (
     `n_cluster` INT NULL,
     `cluster` VARCHAR(255) NULL,
     `Precio de referencia` DECIMAL(10, 2) NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
 """
 
 
@@ -198,7 +198,7 @@ def main():
         "password": os.getenv("DB_PASSWORD"),
         "database": os.getenv("DB_NAME"),
         "use_pure": True,
-        "charset": "utf8mb4",
+        "charset": "latin1",
         "connection_timeout": 10,
         "autocommit": False,
     }
