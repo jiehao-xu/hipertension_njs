@@ -9,6 +9,7 @@ import numpy as np
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 CSV_PATH = SCRIPT_DIR.parents[2] / "data" / "raw" / "medicamentosHU5.csv"
+XLSX3_PATH = SCRIPT_DIR.parents[2] / "data" / "raw" / "medicamentosHU3.xlsx"
 
 create_sql = """
 CREATE TABLE IF NOT EXISTS medicamentos_hu5 (
@@ -87,7 +88,8 @@ CREATE TABLE IF NOT EXISTS medicamentos_hu5 (
     `labtitular_Tecnimede España Industria Farmaceutica S.A.` BOOLEAN NULL,
     `labtitular_infrequent_sklearn` BOOLEAN NULL,
     `n_cluster` INT NULL,
-    `cluster` VARCHAR(255) NULL
+    `cluster` VARCHAR(255) NULL,
+    `Precio de referencia` DECIMAL(10, 2) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 """
 
@@ -168,10 +170,14 @@ INSERT INTO medicamentos_hu5
     `labtitular_Tecnimede España Industria Farmaceutica S.A.`,
     `labtitular_infrequent_sklearn`,
     `n_cluster`,
-    `cluster`)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    `cluster`,
+    `Precio de referencia`)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 
+
+
+    
 
 def to_mysql_value(value):
     if pd.isna(value):
@@ -197,7 +203,17 @@ def main():
         "autocommit": False,
     }
 
+    df_hu3 = pd.read_excel(XLSX3_PATH)
     df = pd.read_csv(CSV_PATH)
+
+    precio_referencia = df_hu3["Precio de referencia"]
+    mean_value = precio_referencia.mean()
+
+    if len(df) != len(df_hu3):
+        raise ValueError("El Excel y el CSV tienen distinto número de filas")
+
+    df["Precio de referencia"] = precio_referencia.fillna(mean_value)
+        
    
 
     rows = []
