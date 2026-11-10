@@ -61,7 +61,7 @@ def infer_and_add_cluster_column(file_path: str="data/raw/medicamentosHU4.csv"):
     plt.grid(True, linestyle="--", alpha=0.6)
     plt.tight_layout()
     figura_silueta.savefig(figures_path / "silhouette_score.png")
-    plt.show()
+    # plt.show()
     plt.close(figura_silueta)
 
 

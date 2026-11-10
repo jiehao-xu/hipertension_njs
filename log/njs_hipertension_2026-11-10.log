@@ -1,0 +1,7 @@
+2026-11-10 20:17:13,518 - INFO - [*] Iniciando ejecución de: src/extraction/hu-1/rest_api.py
+2026-11-10 20:23:42,095 - INFO - [*] Iniciando ejecución de: src/extraction/hu-1/rest_api.py
+2026-11-10 20:25:02,321 - INFO - [+] Éxito al ejecutar src/extraction/hu-1/rest_api.py
+2026-11-10 20:25:02,321 - INFO - [*] Iniciando ejecución de: src/extraction/hu-2/scrapping.py
+2026-11-10 20:26:48,345 - INFO - [+] Éxito al ejecutar src/extraction/hu-2/scrapping.py
+2026-11-10 20:26:48,345 - INFO - [*] Iniciando ejecución de: src/extraction/hu-3/csv_extractor.py
+2026-11-10 20:27:07,933 - INFO - [+] Éxito al ejecutar src/extraction/hu-3/csv_extractor.py
