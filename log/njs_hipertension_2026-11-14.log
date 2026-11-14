@@ -1,0 +1,12 @@
+2026-11-14 19:13:36,866 - INFO - [*] Iniciando ejecución de: src/extraction/hu-1/rest_api.py
+2026-11-14 19:20:27,014 - INFO - [+] Éxito al ejecutar src/extraction/hu-1/rest_api.py
+2026-11-14 19:20:27,014 - INFO - [*] Iniciando ejecución de: src/extraction/hu-2/scrapping.py
+2026-11-14 19:29:51,760 - INFO - [+] Éxito al ejecutar src/extraction/hu-2/scrapping.py
+2026-11-14 19:29:51,760 - INFO - [*] Iniciando ejecución de: src/extraction/hu-3/csv_extractor.py
+2026-11-14 19:35:30,627 - INFO - [+] Éxito al ejecutar src/extraction/hu-3/csv_extractor.py
+2026-11-14 19:49:44,216 - INFO - [*] Iniciando ejecución de: src/extraction/hu-4/clean.py
+2026-11-14 19:49:45,614 - INFO - [+] Éxito al ejecutar src/extraction/hu-4/clean.py
+2026-11-14 19:49:45,614 - INFO - [*] Iniciando ejecución de: src/extraction/hu-5/predict.py
+2026-11-14 19:49:47,537 - INFO - [+] Éxito al ejecutar src/extraction/hu-5/predict.py
+2026-11-14 19:49:47,537 - INFO - [*] Iniciando ejecución de: src/extraction/hu-6/sql.py
+2026-11-14 19:49:48,065 - INFO - [+] Éxito al ejecutar src/extraction/hu-6/sql.py

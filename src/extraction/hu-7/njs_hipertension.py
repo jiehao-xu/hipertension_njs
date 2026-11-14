@@ -24,9 +24,9 @@ def ejecutar_proceso(script_name):
 
 if __name__ == "__main__":
     scripts = [
-        DEFAULT_HU_FOLDER+"/hu-1/rest_api.py", 
-        DEFAULT_HU_FOLDER+"/hu-2/scrapping.py",
-        DEFAULT_HU_FOLDER+"/hu-3/csv_extractor.py",
+        # DEFAULT_HU_FOLDER+"/hu-1/rest_api.py", 
+        # DEFAULT_HU_FOLDER+"/hu-2/scrapping.py",
+        # DEFAULT_HU_FOLDER+"/hu-3/csv_extractor.py",
         DEFAULT_HU_FOLDER+"/hu-4/clean.py",
         DEFAULT_HU_FOLDER+"/hu-5/predict.py",
         DEFAULT_HU_FOLDER+"/hu-6/sql.py"

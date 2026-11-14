@@ -242,6 +242,14 @@ def main():
             raise ValueError(f"Filas insertadas: {inserted}; esperadas: {len(df)}")
         conn.commit()
         print(f"Tabla medicamentos_hu5 preparada. Filas insertadas: {inserted}")
+        for i in range(1, 5):
+            print(f"[*] Executing KPI {i}...")
+            cursor.execute(f"DROP VIEW IF EXISTS kpi{i}")  
+            conn.commit()
+            with open(f"src/extraction/hu-6/kpi{i}.sql") as f:
+                file = f.read()
+                cursor.execute(file)
+                conn.commit()
     except Exception:
         if conn is not None and conn.is_connected():
             conn.rollback()
