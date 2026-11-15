@@ -11,7 +11,7 @@ DEFAULT_HU_FOLDER = "src/extraction"
 
 # Configuración de la librería logging
 LOG_FILE = "log/njs_hipertension_"
-logging.basicConfig(filename=f"{LOG_FILE}{date.today()}.log", level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=f"{LOG_FILE}{date.today()}.log", level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
 def ejecutar_proceso(script_name):
     logging.info(f"[*] Iniciando ejecución de: {script_name}")

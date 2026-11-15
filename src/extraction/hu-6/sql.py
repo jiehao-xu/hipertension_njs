@@ -246,7 +246,7 @@ def main():
             print(f"[*] Executing KPI {i}...")
             cursor.execute(f"DROP VIEW IF EXISTS kpi{i}")  
             conn.commit()
-            with open(f"src/extraction/hu-6/kpi{i}.sql") as f:
+            with open(f"src/extraction/hu-6/kpi{i}.sql", encoding="utf-8") as f:
                 file = f.read()
                 cursor.execute(file)
                 conn.commit()
