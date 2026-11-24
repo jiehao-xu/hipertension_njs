@@ -90,7 +90,9 @@ CREATE TABLE IF NOT EXISTS medicamentos_hu5 (
     `n_cluster` INT NULL,
     `cluster` VARCHAR(255) NULL,
     `Precio de referencia` DECIMAL(10, 2) NULL,
-    `forma_farmaceutica_simplificada` VARCHAR(255) NULL
+    `forma_farmaceutica_simplificada` VARCHAR(255) NULL,
+    `url_html_ficha_tecnica` VARCHAR(255) NULL,
+    `url_foto_materiales` VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 """
 
@@ -173,8 +175,11 @@ INSERT INTO medicamentos_hu5
     `n_cluster`,
     `cluster`,
     `Precio de referencia`,
-    `forma_farmaceutica_simplificada`)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    `forma_farmaceutica_simplificada`,
+    `url_html_ficha_tecnica`,
+    `url_foto_materiales`
+    )
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 
@@ -213,13 +218,16 @@ def main():
     forma_farmaceutica_simplificada = df_hu3["forma_farmaceutica_simplificada"]
     mean_value = precio_referencia.mean()
 
+    url_ficha_tecnica = df_hu3["url_html_ficha_tecnica"]
+    url_foto_materiales = df_hu3["url_foto_materiales"]
+
     if len(df) != len(df_hu3):
         raise ValueError("El Excel y el CSV tienen distinto número de filas")
 
     df["Precio de referencia"] = precio_referencia.fillna(mean_value)
     df["forma_farmaceutica_simplificada"] = forma_farmaceutica_simplificada
-        
-   
+    df["url_html_ficha_tecnica"] = url_ficha_tecnica
+    df["url_foto_materiales"] = url_foto_materiales
 
     rows = []
     for row in df.itertuples(index=False, name=None):
@@ -242,7 +250,7 @@ def main():
             raise ValueError(f"Filas insertadas: {inserted}; esperadas: {len(df)}")
         conn.commit()
         print(f"Tabla medicamentos_hu5 preparada. Filas insertadas: {inserted}")
-        for i in range(1, 5):
+        for i in range(1, 6):
             print(f"[*] Executing KPI {i}...")
             cursor.execute(f"DROP VIEW IF EXISTS kpi{i}")  
             conn.commit()
