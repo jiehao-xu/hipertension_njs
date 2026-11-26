@@ -92,7 +92,8 @@ CREATE TABLE IF NOT EXISTS medicamentos_hu5 (
     `Precio de referencia` DECIMAL(10, 2) NULL,
     `forma_farmaceutica_simplificada` VARCHAR(255) NULL,
     `url_html_ficha_tecnica` VARCHAR(255) NULL,
-    `url_foto_materiales` VARCHAR(255) NULL
+    `url_foto_materiales` VARCHAR(255) NULL,
+    `nombre_medicamento`VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
 """
 
@@ -177,9 +178,10 @@ INSERT INTO medicamentos_hu5
     `Precio de referencia`,
     `forma_farmaceutica_simplificada`,
     `url_html_ficha_tecnica`,
-    `url_foto_materiales`
+    `url_foto_materiales`,
+    `nombre_medicamento`
     )
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 
@@ -220,6 +222,7 @@ def main():
 
     url_ficha_tecnica = df_hu3["url_html_ficha_tecnica"]
     url_foto_materiales = df_hu3["url_foto_materiales"]
+    nombre_medicamento = df_hu3["nombre"]
 
     if len(df) != len(df_hu3):
         raise ValueError("El Excel y el CSV tienen distinto número de filas")
@@ -228,6 +231,7 @@ def main():
     df["forma_farmaceutica_simplificada"] = forma_farmaceutica_simplificada
     df["url_html_ficha_tecnica"] = url_ficha_tecnica
     df["url_foto_materiales"] = url_foto_materiales
+    df["nombre_medicamento"] = nombre_medicamento
 
     rows = []
     for row in df.itertuples(index=False, name=None):
